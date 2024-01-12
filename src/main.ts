@@ -55,9 +55,9 @@ class Box extends PIXI.Graphics {
     filteredBoxes.forEach((box) => {
       if (this.isCollide(box)) {
         if (this.x < box.x) {
-          this.x = box.x - this.size * 100;
+          this.x = box.x - this.size * 100 - 2;
         } else {
-          this.x = box.x + box.size * 100;
+          this.x = box.x + box.size * 100 + 2;
         }
         const velocityX =
           ((this.mass - box.mass) / (this.mass + box.mass)) * this.velocity +
@@ -67,6 +67,7 @@ class Box extends PIXI.Graphics {
           ((box.mass - this.mass) / (this.mass + box.mass)) * box.velocity;
         this.newVelocity = velocityX;
         box.newVelocity = velocityY;
+        console.log(this.newVelocity, box.newVelocity);
       }
     });
   }
