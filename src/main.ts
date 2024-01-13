@@ -67,7 +67,6 @@ class Box extends PIXI.Graphics {
           ((box.mass - this.mass) / (this.mass + box.mass)) * box.velocity;
         this.newVelocity = velocityX;
         box.newVelocity = velocityY;
-        console.log(this.newVelocity, box.newVelocity);
       }
     });
   }
