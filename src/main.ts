@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 
 const app = new PIXI.Application({
   background: "#000000",
-  resizeTo: window,
+  resizeTo: document.body,
 });
 
 document.body.appendChild(app.view as HTMLCanvasElement);
@@ -35,7 +35,7 @@ class Box extends PIXI.Graphics {
     this.pivot.x = 0;
     this.pivot.y = size * 100;
     this.x = x * 100;
-    this.y = window.innerHeight;
+    this.y = app.screen.height;
     this.uuid = crypto.randomUUID();
   }
   tick(timeDelta: number, boxes: Box[]) {
@@ -44,8 +44,8 @@ class Box extends PIXI.Graphics {
       this.velocity *= -1;
       this.newVelocity = this.velocity;
     }
-    if (this.x + this.size * 100 > window.innerWidth) {
-      this.x = window.innerWidth - this.size * 100;
+    if (this.x + this.size * 100 > app.screen.width) {
+      this.x = app.screen.width - this.size * 100;
       this.velocity *= -1;
       this.newVelocity = this.velocity;
     }
@@ -90,7 +90,7 @@ boxes.push(new Box(0, 2, 3));
 boxes.push(new Box(7, 10, -2));
 boxes.forEach((box) => view.addChild(box));
 window.onresize = () => {
-  boxes.forEach((box) => (box.y = window.innerHeight));
+  boxes.forEach((box) => (box.y = app.screen.height));
 };
 
 const stop = document.getElementById("stop") as HTMLDivElement;
